@@ -88,7 +88,7 @@ public class AuthServiceImpl implements AuthService {
             throw new BadRequestException("Invalid email or password");
         }
 
-        User user = userRepository.findByEmailOrMobile(request.getEmail(), request.getEmail())
+        User user = userRepository.findByEmailOrMobile(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         if (!user.isActive()) {

@@ -69,8 +69,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
 
     @Query("""
         SELECT c FROM Complaint c
-        WHERE c.status NOT IN (com.krishimitra.entity.Complaint.Status.RESOLVED,
-                               com.krishimitra.entity.Complaint.Status.CLOSED)
+        WHERE c.status NOT IN ('RESOLVED', 'CLOSED')
         AND c.createdAt < :cutoff
         ORDER BY c.priority DESC, c.createdAt ASC
         """)
@@ -95,7 +94,7 @@ public interface ComplaintRepository extends JpaRepository<Complaint, Long> {
         SELECT c FROM Complaint c WHERE
         LOWER(c.title) LIKE LOWER(CONCAT('%',:title,'%')) OR
         LOWER(c.description) LIKE LOWER(CONCAT('%',:desc,'%'))
-        AND c.status != com.krishimitra.entity.Complaint.Status.CLOSED
+        AND c.status != 'CLOSED'
         """)
     List<Complaint> findPotentialDuplicates(@Param("title") String title, @Param("desc") String description);
 }

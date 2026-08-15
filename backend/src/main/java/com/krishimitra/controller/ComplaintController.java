@@ -40,11 +40,12 @@ public class ComplaintController {
             @RequestParam(required = false) List<MultipartFile> attachments,
             Authentication auth) {
 
-        Complaint complaint = new Complaint();
-        complaint.setTitle(title);
-        complaint.setDescription(description);
-        complaint.setCategory(Complaint.Category.valueOf(category));
-        complaint.setLocation(location);
+        Complaint complaint = Complaint.builder()
+                .title(title)
+                .description(description)
+                .category(Complaint.Category.valueOf(category))
+                .location(location)
+                .build();
 
         Complaint saved = complaintService.createComplaint(complaint, auth.getName());
         return ResponseEntity.status(HttpStatus.CREATED)

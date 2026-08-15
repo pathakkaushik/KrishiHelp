@@ -19,12 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByMobile(String mobile);
 
     @Query("SELECT u FROM User u WHERE u.email = :identifier OR u.mobile = :identifier")
-    Optional<User> findByEmailOrMobile(@Param("identifier") String email,
-                                        @Param("identifier2") String mobile);
-
-    // Fix: use proper OR query
-    @Query("SELECT u FROM User u WHERE u.email = :val OR u.mobile = :val")
-    Optional<User> findByEmailOrMobile(@Param("val") String val, @Param("val") String val2);
+    Optional<User> findByEmailOrMobile(@Param("identifier") String identifier);
 
     boolean existsByEmail(String email);
     boolean existsByMobile(String mobile);
